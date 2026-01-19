@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             app(cityInput.value.trim());
         }
     });
-
-    // Optional: Load a default city on start
-    app('Mumbai');
+    
+    UI.updateBackground('clear');
+    playAmbient('clear');
 });
