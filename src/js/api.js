@@ -23,7 +23,6 @@ export async function fetchWeather(city) {
             theme: determineTheme(data) // Calculated theme (e.g., 'autumn')
         };
     } catch (error) {
-        console.error("API Error:", error);
         throw error; // Pass error to UI to handle
     }
 }

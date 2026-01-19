@@ -246,3 +246,91 @@ body {
     .weather-card { padding: 2rem; width: 95%; }
     .city-name { font-size: 2rem; }
 }
+
+/* --- COOL LOADER STYLES --- */
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.weather-icon-loader {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+}
+
+/* 1. The Sun (Rising Animation) */
+.sun-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #f1c40f 0%, #f39c12 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(243, 156, 18, 0.6);
+    transform: translate(-50%, -50%);
+    animation: sun-rise 2s ease-in-out infinite;
+}
+
+/* 2. The Cloud (Glassy Look) */
+.cloud-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transform: translate(-50%, -20%); /* Sits slightly lower */
+    animation: cloud-float 2s ease-in-out infinite;
+    z-index: 2; /* Sits in front of the sun */
+}
+
+/* Add a little puff to the cloud */
+.cloud-loader::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+}
+
+/* 3. The Text */
+.loading-text {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    animation: pulse-text 1.5s ease-in-out infinite;
+}
+
+/* --- ANIMATIONS --- */
+
+/* Sun moves up and down */
+@keyframes sun-rise {
+    0%, 100% { transform: translate(-50%, -10%); opacity: 0.8; } /* Low/Hidden */
+    50% { transform: translate(-50%, -80%); opacity: 1; } /* High/Rising */
+}
+
+/* Cloud floats left and right slightly */
+@keyframes cloud-float {
+    0%, 100% { transform: translate(-50%, -20%); }
+    50% { transform: translate(-50%, -25%) scale(1.05); }
+}
+
+/* Text fades in and out */
+@keyframes pulse-text {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}

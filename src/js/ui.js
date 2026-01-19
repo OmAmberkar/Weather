@@ -90,8 +90,22 @@ export const UI = {
 
     // 4. Loading State
     showLoading() {
+        // ERROR WAS HERE: Removed "this."
         elements.card.classList.remove('hidden');
-        elements.card.innerHTML = `<div class="loading-spinner"></div>`;
+
+        // A "Cool" CSS-only Weather Animation
+        elements.card.innerHTML = `
+            <div class="loader-container">
+                <div class="weather-icon-loader">
+                    <div class="sun-loader"></div>
+                    <div class="cloud-loader"></div>
+                </div>
+                <div class="loading-text">Forecasting...</div>
+            </div>
+        `;
+
+        // Optional: Animate the entry of the loader
+        gsap.fromTo(".loader-container", { opacity: 0 }, { opacity: 1, duration: 0.5 });
     },
 
     showError(message) {
