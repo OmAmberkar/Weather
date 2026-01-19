@@ -1,0 +1,6 @@
+# Ignore the actual config file containing secrets
+src/js/config.js
+
+# Ignore system files
+.DS_Store
+node_modules/

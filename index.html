@@ -1,39 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./assets/images/favicon.jfif" type="image/x-icon">
+    <title>Atmosphere Weather</title>
+    <link rel="stylesheet" href="./src/css/main.css">
+    <link rel="stylesheet" href="./assets/sounds/rain.mp3">
 </head>
-
 <body>
-    <!-- Animated background weather elements -->
-    <div class="weather-bg">
-        <div class="weather-icon">☁️</div>
-        <div class="weather-icon">🌤️</div>
-        <div class="weather-icon">🌧️</div>
-        <div class="weather-icon">❄️</div>
-        <div class="weather-icon">⚡</div>
+
+    <div class="bg-container">
+        <video id="bg-video" autoplay muted loop playsinline poster="./assets/videos/rain.gif">
+            </video>
+        <div class="overlay"></div>
     </div>
 
     <div class="container">
-        <h1>🌤️ Weather Forecast</h1>
+        <h1 class="app-title">Weather Forecast</h1>
 
         <div class="search-container">
             <div class="input-group">
-                <input type="text" id="cityInput" placeholder="Enter City Name" />
-                <button onclick="getWeather()">Get Weather</button>
+                <input type="text" id="cityInput" placeholder="Search City..." autocomplete="off"/>
+                <button id="searchBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
             </div>
         </div>
 
-        <div id="weatherResult">
-            <p style="opacity: 0.7;">Enter a city name to get weather information</p>
-        </div>
+        <div id="weatherResult" class="weather-card hidden">
+            </div>
     </div>
 
-    <script src="./script.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 
+    <script type="module" src="./src/js/main.js"></script>
+</body>
 </html>

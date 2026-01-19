@@ -1,0 +1,248 @@
+/* 1. RESET & BASICS */
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --accent-color: rgba(255, 255, 255, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--text-primary);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Prevents scrolling */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Fallback gradient if video fails */
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+/* 2. VIDEO BACKGROUND (Immersive Layer) */
+.bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Darkens the video slightly so text pops */
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* 3. MAIN CONTAINER (The Stage) */
+.container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center */
+    align-items: center;     /* Horizontally center */
+    padding: 20px;
+}
+
+/* 4. SEARCH BAR (Floating Island) */
+.search-container {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 50;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px; /* Pill shape */
+    padding: 8px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group:focus-within {
+    transform: scale(1.02);
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+#cityInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    color: white;
+    outline: none;
+    font-weight: 300;
+}
+
+#cityInput::placeholder {
+    color: var(--text-secondary);
+}
+
+#searchBtn {
+    background: white;
+    color: #333;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+#searchBtn:hover {
+    transform: rotate(90deg); /* Playful rotation on hover */
+}
+
+/* 5. WEATHER CARD (The Hero Section) */
+/* We remove the specific 'card' look and make it fill space more naturally */
+.weather-card {
+    width: 100%;
+    max-width: 800px; /* Much wider now */
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 3rem 4rem;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0; /* Hidden initially for GSAP */
+}
+
+.weather-card.hidden {
+    display: none;
+}
+
+/* Typography Scale */
+.city-name {
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.country {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: rgba(0,0,0,0.4);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.main-temp {
+    font-size: 8rem; /* Huge impact */
+    font-weight: 200; /* Thin and modern */
+    line-height: 1;
+    margin: 1rem 0;
+    position: relative;
+    display: inline-block;
+}
+
+.unit {
+    font-size: 3rem;
+    position: absolute;
+    top: 10px;
+    right: -40px;
+    opacity: 0.8;
+}
+
+.condition {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+/* 6. DETAILS GRID (Bottom Section) */
+.details-grid {
+    width: 100%;
+    display: flex;
+    justify-content: space-around; /* Spread nicely */
+    gap: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 2rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+}
+
+.value {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* 7. ANIMATION UTILITIES */
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .main-temp { font-size: 5rem; }
+    .unit { font-size: 2rem; right: -25px; }
+    .weather-card { padding: 2rem; width: 95%; }
+    .city-name { font-size: 2rem; }
+}
